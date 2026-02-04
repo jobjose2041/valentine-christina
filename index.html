@@ -3,29 +3,26 @@
   const noBtn = document.getElementById("noBtn");
   const message = document.getElementById("message");
 
-  yesBtn.onclick = () => {
-    message.innerHTML = "YAY!!! 💕 I knew you'd say YES 😍🌹";
+  yesBtn.addEventListener("click", () => {
+    message.innerHTML = "YAY!!! 💖 Best choice ever 😍🌹";
     startConfetti();
     startFlowers();
-  };
+  });
 
-  // NO button runs away 😈
-  noBtn.addEventListener("mouseover", moveNoButton);
+  // Gentle runaway effect
+  noBtn.addEventListener("mouseenter", () => {
+    const moveX = (Math.random() * 200) - 100;
+    const moveY = (Math.random() * 120) - 60;
 
-  function moveNoButton() {
-    const container = document.querySelector(".container");
-    const containerRect = container.getBoundingClientRect();
+    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  });
 
-    const maxX = containerRect.width - noBtn.offsetWidth;
-    const maxY = containerRect.height - noBtn.offsetHeight;
-
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    noBtn.style.position = "absolute";
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-  }
+  noBtn.addEventListener("mouseleave", () => {
+    // Slowly comes back to original spot
+    setTimeout(() => {
+      noBtn.style.transform = "translate(0, 0)";
+    }, 300);
+  });
 
   function startConfetti() {
     for (let i = 0; i < 120; i++) {
@@ -40,7 +37,7 @@
 
   function startFlowers() {
     const flowers = ["🌸","🌹","🌺","💐","🌷"];
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 30; i++) {
       const flower = document.createElement("div");
       flower.className = "flower";
       flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
@@ -50,4 +47,3 @@
     }
   }
 </script>
-
